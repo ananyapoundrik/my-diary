@@ -63,7 +63,7 @@ button.addEventListener("click", async () => {
 
     const trigger = triggerInput.value.trim();
 
-    const reflectRes = await fetch("http://localhost:3000/reflect", {
+    const reflectRes = await fetch("https://my-diary-1lix.onrender.com/reflect", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -96,7 +96,7 @@ button.addEventListener("click", async () => {
   };
 
     // Save to server
-    const saveRes = await fetch("http://localhost:3000/save-entry", {
+    const saveRes = await fetch("https://my-diary-1lix.onrender.com/save-entry", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
