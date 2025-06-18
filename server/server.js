@@ -11,9 +11,18 @@ import User from "./models/user.js";
 import connectDB from "./db.js";
 import mongoose from 'mongoose';
 
+const app = express();
 const users = [];
 const PORT = 3000;
+const __dirname = path.resolve();
 
+app.use(cors());
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 mongoose.connect(process.env.MONGO_URI)
   .then(async () => {
@@ -24,9 +33,7 @@ mongoose.connect(process.env.MONGO_URI)
   });
 
 const ENTRIES_FILE = path.join(process.cwd(), 'journalEntries.json');
-const app = express();
-app.use(cors());
-app.use(express.json());
+
 
 console.log("🔑 OpenRouter API Key loaded:", process.env.OPENROUTER_API_KEY ? "Yes" : "No");
 
