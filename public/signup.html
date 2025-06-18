@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Signup | My Diary</title>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    if (localStorage.getItem("token")) {
+      window.location.href = "index.html";
+    }
+  </script>
+</head>
+<body>
+  <div class="auth-container">
+    <h1>📝 Create Your Diary Account</h1>
+
+    <form id="signup-form">
+      <label>Email</label>
+      <input type="email" id="signup-email" required placeholder="Enter your email" />
+
+      <label>Password</label>
+      <input type="password" id="signup-password" required placeholder="Create a password" />
+
+      <button type="submit">Signup</button>
+    </form>
+
+    <p>Already have an account? <a href="login.html">Login here</a></p>
+    <p id="signup-message" class="message-box"></p>
+  </div>
+
+  <script src="script/signup.js" defer></script>
+  <div id="alertBox" class="alert hidden"></div>
+</body>
+</html>

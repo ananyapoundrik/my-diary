@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Diary App</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: "Georgia", serif;
+      background: url('https://www.transparenttextures.com/patterns/paper-fibers.png') repeat, #fdf6e3;
+      color: #4a4a4a;
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: auto;
+      line-height: 1.6;
+      transition: background-color 0.4s, color 0.4s;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.2em;
+      color: #5b4636;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    #theme-toggle {
+      transform: scale(1.2);
+    }
+
+    textarea {
+      width: 100%;
+      height: 160px;
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid #d0c7b7;
+      background-color: #fffdf8;
+      font-size: 16px;
+      resize: vertical;
+      box-shadow: inset 1px 1px 4px rgba(0,0,0,0.05);
+    }
+
+    button {
+      margin-top: 15px;
+      background-color: #7a5c3e;
+      color: white;
+      padding: 10px 22px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      box-shadow: 1px 2px 5px rgba(0,0,0,0.1);
+    }
+
+    button:hover {
+      background-color: #5b4636;
+    }
+
+    #ai-response {
+      margin-top: 25px;
+      background-color: #fffdf8;
+      padding: 18px;
+      border-left: 4px solid #a1866f;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    }
+
+    #history-box {
+      margin-top: 40px;
+    }
+
+    #history-box > div {
+      background-color: #fcfaf4;
+      margin-bottom: 20px;
+      padding: 16px;
+      border-radius: 6px;
+      border-left: 3px solid #c8bfae;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    hr {
+      margin: 40px 0;
+      border: none;
+      border-top: 1px dashed #c2b59b;
+    }
+
+    .dark-mode {
+      background: #1f1b16;
+      color: #eae0d5;
+    }
+
+    .dark-mode h1 {
+      color: #f6f1eb;
+    }
+
+    .dark-mode textarea {
+      background-color: #2a2520;
+      color: #eae0d5;
+      border: 1px solid #524438;
+    }
+
+    .dark-mode button {
+      background-color: #4d3827;
+    }
+
+    .dark-mode #ai-response,
+    .dark-mode #history-box > div {
+      background-color: #2a2520;
+      border-left-color: #6a5c4d;
+    }
+
+    @media screen and (max-width: 600px) {
+      body {
+        padding: 20px 15px;
+      }
+
+      textarea {
+        font-size: 14px;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      h1 {
+        font-size: 1.7em;
+      }
+    }
+
+    /* Floating calm button and popup */
+    .calm-float-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 24px;
+      text-align: center;
+      line-height: 50px;
+      background-color: #a88b6f;
+      color: white;
+      border: none;
+      box-shadow: 2px 4px 10px rgba(0,0,0,0.15);
+      cursor: pointer;
+    }
+
+    .calm-popup {
+      display: none;
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 260px;
+      background-color: #fffdf8;
+      padding: 20px;
+      border: 1px solid #c9b6a6;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .dark-mode .calm-popup {
+      background-color: #2a2520;
+      color: #eae0d5;
+      border-color: #6a5c4d;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  </style>
+ <script>
+  // Redirect to login if token is missing
+  if (!localStorage.getItem("token")) {
+    window.location.href = "login.html";
+  }
+</script> 
+</head>
+<body>
+
+  <!-- Dark Mode Toggle -->
+  <label>
+    <input type="checkbox" id="theme-toggle" />
+    🌙 Toggle Dark Mode
+  </label>
+
+  <h1>📝 Welcome to My Diary</h1>
+
+  <div id="main">
+    <!-- Mood Selector -->
+    <div id="mood-selector">
+      <label>Select your mood:</label>
+      <div class="emoji-list">
+        <button class="mood-option" data-mood="sad">😔</button>
+        <button class="mood-option" data-mood="neutral">😐</button>
+        <button class="mood-option" data-mood="happy">😊</button>
+        <button class="mood-option" data-mood="excited">🤩</button>
+        <button class="mood-option" data-mood="angry">😡</button>
+      </div>
+    </div>
+
+    <!-- Journal Entry -->
+    <textarea id="journal-entry" placeholder="Write your thoughts here..."></textarea>
+
+    <!-- Voice Input -->
+    <button id="mic-btn" title="Speak journal entry">🎙️ Speak</button>
+
+    <!-- Trigger Tracker -->
+    <label for="trigger-input">🔍 What triggered this mood? (optional)</label>
+    <input type="text" id="trigger-input" placeholder="e.g. exam stress, meeting, celebration" />
+
+    <!-- Submit to AI -->
+    <button id="submit-btn">Reflect with AI</button>
+
+    <!-- Logout -->
+    <button id="logout-btn">Logout</button>
+
+    <!-- Read Aloud -->
+    <label>
+      <input type="checkbox" id="read-aloud"> 🔊 Read response aloud
+    </label>
+
+    <!-- AI Reflection Output -->
+    <div id="ai-response"></div>
+
+    <!-- History -->
+    <hr>
+    <h3>📜 Past Reflections</h3>
+    <div id="history-box"></div>
+  </div>
+
+  <!-- Mood Trends -->
+  <section id="mood-stats">
+    <h2>📈 Mood Trends</h2>
+    <div id="mood-chart" class="mood-chart"></div>
+  </section>
+
+  <!-- Trigger Stats -->
+  <div id="trigger-stats" class="trigger-box"></div>
+
+  <!-- Floating Calm Button -->
+  <button id="calm-btn" class="calm-float-btn" title="You're safe here">🧘‍♀️</button>
+
+  <!-- Calm Popup -->
+  <div id="calm-box" class="calm-popup">
+    <span id="calm-close" class="close-btn">&times;</span>
+    <p id="calm-text">🌱</p>
+  </div>
+
+  <!-- Calming Audio -->
+  <audio id="calm-audio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto"></audio>
+
+  <!-- Script -->
+  <script src="script/main.js" defer></script>
+  <link rel="stylesheet" href="style.css">
+    <!-- Flash Message -->
+  <div id="flash-msg" class="flash hidden"></div>
+
+</body>
+</html>

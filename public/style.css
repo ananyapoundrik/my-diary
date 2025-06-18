@@ -1,0 +1,98 @@
+/* === LOGIN/SIGNUP AUTH STYLES === */
+body.auth-page {
+  font-family: 'Georgia', serif;
+  background-color: #f6f0e1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.auth-container {
+  max-width: 400px;
+  width: 90%;
+  background-color: #fffdf8;
+  padding: 30px 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.auth-container h1 {
+  color: #5b4636;
+  margin-bottom: 20px;
+}
+
+.auth-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.auth-container label {
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.auth-container input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #d0c7b7;
+  background-color: #fffdf8;
+  font-size: 16px;
+}
+
+.auth-container button {
+  background-color: #7a5c3e;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.auth-container button:hover {
+  background-color: #5b4636;
+}
+
+.auth-container p {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.auth-container a {
+  color: #7a5c3e;
+  text-decoration: underline;
+}
+
+/* Dark mode support */
+.dark-mode body.auth-page {
+  background-color: #2a2520;
+}
+
+.dark-mode .auth-container {
+  background-color: #2a2520;
+  color: #eae0d5;
+}
+
+.dark-mode .auth-container input {
+  background-color: #2a2520;
+  color: #eae0d5;
+  border: 1px solid #524438;
+}
+
+.dark-mode .auth-container button {
+  background-color: #4d3827;
+}
+
+.dark-mode .auth-container button:hover {
+  background-color: #36281d;
+}
+
+.mood-option.selected {
+  outline: 2px solid #333;
+  transform: scale(1.2);
+}

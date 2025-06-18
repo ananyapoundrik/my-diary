@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login | My Diary</title>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    if (localStorage.getItem("token")) {
+      window.location.href = "index.html";
+    }
+  </script>
+</head>
+<body>
+  <div class="auth-container">
+    <h1>🔐 Login to Your Diary</h1>
+
+    <form id="login-form">
+      <label>Username</label>
+      <input type="text" id="login-email" required placeholder="Enter your username" />
+
+      <label>Password</label>
+      <input type="password" id="login-password" required placeholder="Enter password" />
+
+      <button type="submit">Login</button>
+    </form>
+
+    <p>Don't have an account? <a href="signup.html">Signup here</a></p>
+    <p id="login-message" class="message-box"></p>
+
+    <!-- Flash message box -->
+    <div id="alertBox" class="alert hidden"></div>
+  </div>
+
+  <script src="script/login.js" defer></script>
+</body>
+</html>
